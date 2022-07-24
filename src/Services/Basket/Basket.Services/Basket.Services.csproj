@@ -14,9 +14,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\EventBus.Messages\EventBus.Messages.csproj" />
     <ProjectReference Include="..\Basket.Domain.Repository\Basket.Domain.Repository.csproj" />
   </ItemGroup>
 

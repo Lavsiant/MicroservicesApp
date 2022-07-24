@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventBus.Messages.Events;
 using Ordering.API.ViewModels;
 using Ordering.Domain.Aggregates.OrderModule;
 using Ordering.Domain.DTO;
@@ -20,6 +21,7 @@ namespace Ordering.API.Configuration
                 ConfigureViewModelDTO(cfg);
                 ConfigureDTODomain(cfg);
                 ConfigureEventToDomain(cfg);
+                ConfigureEventToDTO(cfg);
             });
         }
 
@@ -35,8 +37,16 @@ namespace Ordering.API.Configuration
         private static void ConfigureDTODomain(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<OrderDTO, Order>().ReverseMap();
-            cfg.CreateMap<AddressDTO, Address>().ReverseMap();
-            cfg.CreateMap<CardDTO, Card>().ReverseMap();
+            cfg.CreateMap<AddressDTO, Domain.ReadModel.Model.Address>().ReverseMap();
+            cfg.CreateMap<CardDTO, Domain.ReadModel.Model.Card>().ReverseMap();
+
+        }
+
+        private static void ConfigureEventToDTO(IMapperConfigurationExpression cfg)
+        {
+            cfg.CreateMap<OrderDTO, CheckoutEvent>().ReverseMap();
+            cfg.CreateMap<AddressDTO, EventBus.Messages.Events.Address>().ReverseMap();
+            cfg.CreateMap<CardDTO, EventBus.Messages.Events.Card>().ReverseMap();
         }
 
         private static void ConfigureEventToDomain(IMapperConfigurationExpression cfg)

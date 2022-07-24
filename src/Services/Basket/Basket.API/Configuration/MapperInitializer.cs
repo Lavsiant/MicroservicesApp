@@ -3,6 +3,7 @@ using Basket.API.ViewModels;
 using Basket.Domain.Model;
 using Basket.Services.Models.ServiceDTOs;
 using Discount.Grpc.Protos;
+using EventBus.Messages.Events;
 
 namespace Basket.API.Configuration
 {
@@ -26,6 +27,9 @@ namespace Basket.API.Configuration
         {
             cfg.CreateMap<ShoppingCartItemViewModel, ShoppingCartItemDTO>().ReverseMap();
             cfg.CreateMap<ShoppingCartViewModel, ShoppingCartDTO>().ReverseMap();
+            cfg.CreateMap<CheckoutViewModel, CheckoutDTO>().ReverseMap();
+            cfg.CreateMap<AddressViewModel, AddressDTO>().ReverseMap();
+            cfg.CreateMap<CardViewModel, CardDTO>().ReverseMap(); 
         }
 
         private static void ConfigureDTODomain(IMapperConfigurationExpression cfg)
@@ -33,6 +37,9 @@ namespace Basket.API.Configuration
             cfg.CreateMap<ShoppingCartItemDTO, ShoppingCartItem>().ReverseMap();
             cfg.CreateMap<ShoppingCartDTO, ShoppingCart>().ReverseMap(); 
             cfg.CreateMap<CouponModel, CouponDTO>().ReverseMap();
+            cfg.CreateMap<CheckoutDTO, CheckoutEvent>().ReverseMap();
+            cfg.CreateMap<AddressDTO, Address>().ReverseMap();
+            cfg.CreateMap<CardDTO, Card>().ReverseMap();
         }
 
     }

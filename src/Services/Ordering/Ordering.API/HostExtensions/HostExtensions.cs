@@ -1,5 +1,7 @@
-﻿using Ordering.API.Common;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Ordering.API.Common;
 using Ordering.API.Configuration;
+using Ordering.Domain.Core.Interfaces;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -30,6 +32,7 @@ namespace Ordering.API.HostExtensions
 
             return host;
         }
+
         public static IHost MigrateDatabase(this IHost host)
         {
 
@@ -73,6 +76,22 @@ namespace Ordering.API.HostExtensions
                 catch (Exception ex)
                 {
                     Console.WriteLine("lol");
+                }
+            }
+
+            return host;
+        }
+
+        public static IHost InitializeEventBusConsumers(this IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var consumers = services.GetServices<IEventBusConsumer>();
+
+                foreach (var consumer in consumers)
+                {
+                    consumer.InitializeSubscriber();
                 }
             }
 

@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using Ordering.API.Common;
 using Ordering.API.Configuration;
 using Ordering.API.HostExtensions;
+using Ordering.Application.EventBusConsumers;
 using Ordering.Application.Handlers;
 using Ordering.Application.Interfaces;
 using Ordering.Application.PubSub;
@@ -14,6 +15,7 @@ using Ordering.Domain.ReadModel.Interfaces;
 using Ordering.Domain.ReadModel.Repositories;
 using Ordering.Infrastructure.Interfaces.EventStore;
 using Ordering.Infrastructure.Repositories;
+using RabbitMQ.Client;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -47,10 +49,25 @@ builder.Services.AddScoped<IScopedDomainEventPubSub, ScopedDomainEventPubSub>();
 
 builder.Services.AddSingleton(MapperInitializer.GetConfiguredMapper());
 
- var app = builder.Build();
+//rabbitmq
+builder.Services.AddSingleton<IConnection>(new ConnectionFactory()
+{
+    HostName = settings.EventBusSettings.HostName,
+    Port = settings.EventBusSettings.Port,
+    UserName = settings.EventBusSettings.UserName,
+    Password = settings.EventBusSettings.Password,
+
+}.CreateConnection());
+
+builder.Services.AddSingleton<IEventBusConsumer, CheckoutEventConsumer>();
+
+
+var app = builder.Build();
 
 app.CreateDatabase(mssqlSettings);
-app.MigrateDatabase();// settings.SQLEventStoreSettings.ConnectionString);
+app.MigrateDatabase();
+app.InitializeEventBusConsumers();
+
 
 app.UseDeveloperExceptionPage();
 // Configure the HTTP request pipeline.

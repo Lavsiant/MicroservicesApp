@@ -12,6 +12,7 @@ namespace Basket.Services.Interfaces
     {
         Task<ServiceValueResult<ShoppingCartDTO>> GetBasket(string userName);
         Task<ServiceValueResult<ShoppingCartDTO>> UpdateBasket(ShoppingCartDTO basket);
+        Task<ServiceValueResult<ShoppingCartDTO>> Checkout(CheckoutDTO model);
         Task<ServiceResult> DeleteBasket(string userName);
     }
 }

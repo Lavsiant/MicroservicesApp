@@ -21,8 +21,11 @@
         public string Password { get; set; }
     }
 
-    internal class EventBusSettings
+    public class EventBusSettings
     {
-        public string HostAddress { get; set; }
+        public string HostName { get; set; }
+        public int Port { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }

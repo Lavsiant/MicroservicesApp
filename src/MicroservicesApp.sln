@@ -45,12 +45,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain.ReadModel", "Services\Ordering\Ordering.Domain.ReadModel\Ordering.Domain.ReadModel.csproj", "{F03AA1E0-EB25-491F-BA5E-DEE70A291B57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{372713CA-EE4F-45CE-A278-9DA5E2669E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{372713CA-EE4F-45CE-A278-9DA5E2669E92}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F442200-877C-45ED-A085-C28F88A69FCB}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DACC3D65-2D29-458B-8784-3CBEAE449B5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "..\EventBus.Messages\EventBus.Messages.csproj", "{A9D28FE7-5DCB-4092-827B-F75FF351DB16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +130,10 @@ Global
 		{372713CA-EE4F-45CE-A278-9DA5E2669E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{372713CA-EE4F-45CE-A278-9DA5E2669E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{372713CA-EE4F-45CE-A278-9DA5E2669E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D28FE7-5DCB-4092-827B-F75FF351DB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D28FE7-5DCB-4092-827B-F75FF351DB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D28FE7-5DCB-4092-827B-F75FF351DB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D28FE7-5DCB-4092-827B-F75FF351DB16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +159,7 @@ Global
 		{F130F521-336E-47CE-B99B-AF46D8B6C816} = {539361BD-4590-4EF7-9408-9791E21FF8DC}
 		{F03AA1E0-EB25-491F-BA5E-DEE70A291B57} = {539361BD-4590-4EF7-9408-9791E21FF8DC}
 		{372713CA-EE4F-45CE-A278-9DA5E2669E92} = {539361BD-4590-4EF7-9408-9791E21FF8DC}
+		{A9D28FE7-5DCB-4092-827B-F75FF351DB16} = {DACC3D65-2D29-458B-8784-3CBEAE449B5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B90F1F6F-DD4E-42DC-BCC9-601877B71140}

@@ -62,5 +62,17 @@ namespace Basket.API.Controllers
 
             return BadRequest(result.Error);
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Checkout([FromBody] CheckoutViewModel basketCheckout)
+        {
+            var checkoutDTO = _mapper.Map<CheckoutDTO>(basketCheckout);
+            var result = await _basketService.Checkout(checkoutDTO);
+
+            return result.Succeeded ? Ok(result) : BadRequest(result.Error);
+        }
     }
 }

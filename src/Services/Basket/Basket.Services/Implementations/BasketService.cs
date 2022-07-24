@@ -4,6 +4,7 @@ using Basket.Domain.Model;
 using Basket.Services.Interfaces;
 using Basket.Services.Models;
 using Basket.Services.Models.ServiceDTOs;
+using EventBus.Messages.Events;
 
 namespace Basket.Services.Implementations
 {
@@ -12,12 +13,14 @@ namespace Basket.Services.Implementations
         private readonly IBasketRepository _basketRepository;
         private readonly IMapper _mapper;
         private readonly IDiscountService _discountService;
+        private readonly IEventBusPublisher _eventBusService;
 
-        public BasketService(IBasketRepository basketRepository, IMapper mapper, IDiscountService discountService)
+        public BasketService(IBasketRepository basketRepository, IMapper mapper, IDiscountService discountService, IEventBusPublisher eventBusService)
         {
             _basketRepository = basketRepository;
             _mapper = mapper;
             _discountService = discountService;
+            _eventBusService = eventBusService;
         }
 
         public async Task<ServiceResult> DeleteBasket(string userName)
@@ -56,6 +59,20 @@ namespace Basket.Services.Implementations
             }
 
             return ServiceValueResult<ShoppingCartDTO>.Success(_mapper.Map<ShoppingCartDTO>(updatedBasket));
+        }
+
+        public async Task<ServiceValueResult<ShoppingCartDTO>> Checkout(CheckoutDTO checkoutDTO)
+        {
+            var basket = await _basketRepository.GetBasket(checkoutDTO.Username);
+            if (basket == null)
+            {
+                return ServiceValueResult<ShoppingCartDTO>.Failed("Basker not found");
+            }
+
+            var checkoutEvent = _mapper.Map<CheckoutEvent>(checkoutDTO);
+            _eventBusService.SendEvent(checkoutEvent);
+
+            return ServiceValueResult<ShoppingCartDTO>.Success(_mapper.Map<ShoppingCartDTO>(basket));
         }
     }
 }
